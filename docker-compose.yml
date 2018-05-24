@@ -1,5 +1,19 @@
 version: '3'
 services:
+  db:
+      build:
+        context: .
+        dockerfile: ./containers/mariadb/Dockerfile
+      restart: always
+      env_file:
+        - .env
+      ports:
+        - "3306:3306"
+      volumes:
+        - ./db:/var/lib/mysql
+      command:
+        - --character-set-server=utf8mb4
+        - --collation-server=utf8mb4_unicode_ci
   web:
       build:
         context: .
@@ -8,6 +22,7 @@ services:
           - "8080:80"
       depends_on:
           - php
+          - db
   php:
       build:
         context: .
