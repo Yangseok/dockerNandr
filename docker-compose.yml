@@ -18,8 +18,9 @@ services:
       build:
         context: .
         dockerfile: ./containers/nginx/Dockerfile
+      restart: always
       ports:
-          - "8080:80"
+          - "80:80"
       depends_on:
           - php
           - db
@@ -27,5 +28,8 @@ services:
       build:
         context: .
         dockerfile: ./containers/php/Dockerfile
+      restart: always
       volumes: 
         - ./www:/var/www/html
+      depends_on:
+          - db
