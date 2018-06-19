@@ -85,7 +85,7 @@ RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-m
   && docker-php-ext-enable memcached
 
 # Copy opcache configration
-COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+COPY ./containers/php7.2/conf/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 
 # Install xDebug, if enabled
@@ -98,10 +98,10 @@ RUN if [ ${INSTALL_XDEBUG} = true ]; then \
 
 
 # Copy xdebug configration for remote debugging
-COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+COPY ./containers/php7.2/conf/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 # Copy timezone configration
-COPY ./timezone.ini /usr/local/etc/php/conf.d/timezone.ini
+COPY ./containers/php7.2/conf/timezone.ini /usr/local/etc/php/conf.d/timezone.ini
 
 
 # Set timezone
@@ -111,7 +111,7 @@ RUN "date"
 
 
 # Short open tags fix - another Symfony requirements
-COPY ./custom-php.ini /usr/local/etc/php/conf.d/custom-php.ini
+COPY ./containers/php7.2/conf/custom-php.ini /usr/local/etc/php/conf.d/custom-php.ini
 
 # Composer
 ENV COMPOSER_HOME /var/www/.composer
